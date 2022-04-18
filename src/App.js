@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Album from './pages/Album';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 import Search from './pages/Search';
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
           <Route path="/" component={ Login } />
           <Route path="/search" component={ Search } />
           <Route path="/album/:id" component={ Album } />
+          <Route path="/profile" component={ Profile } />
         </Switch>
       </div>
     );
