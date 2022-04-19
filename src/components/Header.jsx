@@ -15,7 +15,7 @@ class Header extends Component {
     const { name } = await getUser();
     this.setState({
       loginName: name,
-      loading: true,
+      loading: false,
     });
   }
 
