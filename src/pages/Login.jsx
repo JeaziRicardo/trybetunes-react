@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
 
@@ -8,6 +9,7 @@ class Login extends Component {
     this.state = {
       loginName: '',
       loading: false,
+      logged: false,
     };
   }
 
@@ -19,14 +21,15 @@ class Login extends Component {
   hadleClick = async () => {
     const { loginName } = this.state;
     this.setState({ loading: true });
-    await createUser({ loginName });
+    await createUser({ name: loginName });
     this.setState({
       loading: false,
+      logged: true,
     });
   };
 
   render() {
-    const { loginName, loading } = this.state;
+    const { loginName, loading, logged } = this.state;
     const minName = 3;
     return (
       <div data-testid="page-login">
@@ -54,6 +57,7 @@ class Login extends Component {
               Entrar
             </button>
           </form>)}
+        { logged && <Redirect to="/search" /> }
       </div>
     );
   }
