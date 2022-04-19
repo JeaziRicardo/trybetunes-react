@@ -5,12 +5,17 @@ class Login extends Component {
     super();
     this.state = {
       loginName: '',
-      isDesabled: true,
     };
   }
 
+  handleChange = ({ target }) => {
+    const { value } = target;
+    this.setState({ loginName: value });
+  };
+
   render() {
-    const { isDesabled } = this.state;
+    const { loginName } = this.state;
+    const minName = 3;
     return (
       <div data-testid="page-login">
         <form>
@@ -19,6 +24,8 @@ class Login extends Component {
               type="text"
               name="loginName"
               placeholder="NOME"
+              value={ loginName }
+              onChange={ this.handleChange }
               data-testid="login-name-input"
             />
           </label>
@@ -26,7 +33,7 @@ class Login extends Component {
           <button
             type="button"
             data-testid="login-submit-button"
-            disabled={ isDesabled }
+            disabled={ loginName.length < minName }
           >
             Entrar
           </button>
