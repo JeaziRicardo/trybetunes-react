@@ -27,6 +27,7 @@ class Header extends Component {
         <h1>TrybeTunes</h1>
         { loading ? <Loading /> : <p data-testid="header-user-name">{ loginName }</p> }
         <Link data-testid="link-to-search" to="/search">Pesquisa</Link>
+        <Link data-testid="link-to-favorites" to="/favorites">Favoritas</Link>
       </header>
     );
   }
