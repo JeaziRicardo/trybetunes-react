@@ -18,6 +18,7 @@ class Search extends Component {
 
   render() {
     const { artistName } = this.state;
+    const minName = 2;
     return (
       <div data-testid="page-search">
         <Header />
@@ -35,6 +36,7 @@ class Search extends Component {
           <button
             type="button"
             data-testid="search-artist-button"
+            disabled={ artistName.length < minName }
           >
             Pesquisar
           </button>
