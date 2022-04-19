@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import Loading from '../components/Loading';
+import { createUser } from '../services/userAPI';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       loginName: '',
+      loading: false,
     };
   }
 
@@ -13,32 +16,44 @@ class Login extends Component {
     this.setState({ loginName: value });
   };
 
-  render() {
+  hadleClick = async () => {
     const { loginName } = this.state;
+    this.setState({ loading: true });
+    await createUser({ loginName });
+    this.setState({
+      loading: false,
+    });
+  };
+
+  render() {
+    const { loginName, loading } = this.state;
     const minName = 3;
     return (
       <div data-testid="page-login">
-        <form>
-          <label htmlFor="loginName">
-            <input
-              type="text"
-              name="loginName"
-              placeholder="NOME"
-              value={ loginName }
-              onChange={ this.handleChange }
-              data-testid="login-name-input"
-            />
-          </label>
+        { loading ? (
+          <Loading />
+        ) : (
+          <form>
+            <label htmlFor="loginName">
+              <input
+                type="text"
+                name="loginName"
+                placeholder="NOME"
+                value={ loginName }
+                onChange={ this.handleChange }
+                data-testid="login-name-input"
+              />
+            </label>
 
-          <button
-            type="button"
-            data-testid="login-submit-button"
-            disabled={ loginName.length < minName }
-          >
-            Entrar
-          </button>
-
-        </form>
+            <button
+              type="button"
+              data-testid="login-submit-button"
+              disabled={ loginName.length < minName }
+              onClick={ this.hadleClick }
+            >
+              Entrar
+            </button>
+          </form>)}
       </div>
     );
   }
