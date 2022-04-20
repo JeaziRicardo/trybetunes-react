@@ -20,10 +20,11 @@ class Search extends Component {
   }
 
   handleClick = async () => {
+    const { artistName } = this.setState;
     this.setState(() => ({
       loading: false,
     }));
-    const result = await searchAlbumsAPI();
+    const result = await searchAlbumsAPI(artistName);
     this.setState(() => ({
       artistName: '',
       loading: false,
