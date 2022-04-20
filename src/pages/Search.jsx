@@ -26,7 +26,7 @@ class Search extends Component {
     console.log(result);
     this.setState({
       loading: false,
-      album: result,
+      albums: result,
     });
   }
 
