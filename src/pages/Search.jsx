@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import CardAlbums from '../components/CardAlbums';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends Component {
@@ -9,6 +11,7 @@ class Search extends Component {
       artistName: '',
       loading: false,
       albums: [],
+      search: '',
     };
   }
 
@@ -21,17 +24,17 @@ class Search extends Component {
 
   handleClick = async () => {
     const { artistName } = this.state;
-    this.setState({ loading: true });
+    this.setState({ loading: true, search: artistName });
     const result = await searchAlbumsAPI(artistName);
-    console.log(result);
     this.setState({
+      artistName: '',
       loading: false,
       albums: result,
     });
   }
 
   render() {
-    const { artistName } = this.state;
+    const { artistName, albums, loading, search } = this.state;
     const minName = 2;
     return (
       <div data-testid="page-search">
@@ -41,6 +44,7 @@ class Search extends Component {
             <input
               type="text"
               name={ artistName }
+              value={ artistName }
               placeholder="Nome do Artista"
               data-testid="search-artist-input"
               onChange={ this.hadleChange }
@@ -56,6 +60,9 @@ class Search extends Component {
             Pesquisar
           </button>
         </form>
+        { loading
+          ? <Loading />
+          : <CardAlbums albums={ albums } nameArtist={ search } /> }
       </div>
     );
   }
