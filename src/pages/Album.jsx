@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
-import MusicCard from '../components/MusicCard';
 import Loading from '../components/Loading';
 
 class Album extends Component {
@@ -30,12 +29,11 @@ class Album extends Component {
         {loading ? <Loading /> : (
           <section>
             <Header />
-            <MusicCard
-              artworkUrl100={ musics[0].artworkUrl100 }
-              collectionName={ musics[0].collectionName }
-              artistName={ musics[0].artistName }
-              musics={ musics }
-            />
+            <section>
+              <img src={ musics[0].artworkUrl100 } alt={ musics[0].collectionName } />
+              <h3 data-testid="album-name">{ musics[0].collectionName }</h3>
+              <p data-testid="artist-name">{ musics[0].artistName }</p>
+            </section>
           </section>
         )}
       </main>
