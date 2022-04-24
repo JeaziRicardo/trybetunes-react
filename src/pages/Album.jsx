@@ -11,7 +11,7 @@ class Album extends Component {
     super();
     this.state = {
       musics: [],
-      favorite: [],
+      favorites: [],
       loading: true,
     };
   }
@@ -28,7 +28,7 @@ class Album extends Component {
   }
 
   render() {
-    const { musics, loading } = this.state;
+    const { musics, loading, favorites } = this.state;
     return (
       <main data-testid="page-album">
         {loading ? <Loading /> : (
@@ -46,6 +46,7 @@ class Album extends Component {
                 previewUrl={ music.previewUrl }
                 trackName={ music.trackName }
                 song={ music }
+                favorite={ favorites.some(({ trackId }) => trackId === music.trackId) }
               />
             ))}
           </section>
