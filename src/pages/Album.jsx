@@ -4,12 +4,14 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
     super();
     this.state = {
       musics: [],
+      favorite: [],
       loading: true,
     };
   }
@@ -17,8 +19,10 @@ class Album extends Component {
   componentDidMount = async () => {
     const { match: { params: { id } } } = this.props;
     const musics = await getMusics(id);
+    const favorites = await getFavoriteSongs();
     this.setState({
       musics,
+      favorites,
       loading: false,
     });
   }
