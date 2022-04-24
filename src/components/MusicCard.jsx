@@ -4,11 +4,12 @@ import { addSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { favorite } = props;
     this.state = {
       loading: false,
-      checked: '',
+      checked: favorite,
     };
   }
 
@@ -58,7 +59,12 @@ MusicCard.propTypes = {
   trackId: PropTypes.number.isRequired,
   previewUrl: PropTypes.string.isRequired,
   trackName: PropTypes.string.isRequired,
-  song: PropTypes.objectOf(PropTypes.string).isRequired,
+  favorite: PropTypes.bool.isRequired,
+  song: PropTypes.shape({
+    trackId: PropTypes.number,
+    trackName: PropTypes.string,
+    previewUrl: PropTypes.string,
+  }).isRequired,
 };
 
 export default MusicCard;
